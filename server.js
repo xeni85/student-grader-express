@@ -43,6 +43,10 @@ app.get('/students/:id', (req, res) => {
     res.render('Show', { student: students[req.params.id] });
 });
 
+app.get('/students/:id/grades', (req, res) => {
+    res.render('Grades', { student: students[req.params.id] });
+});
+
 // GET '/students/:id/edit' : route displaying a form to edit a student
 
 app.get('/students/:id/edit', (req, res) => {
@@ -51,7 +55,7 @@ app.get('/students/:id/edit', (req, res) => {
 
 // PATCH/PUT 'students/:id' update : route updating a student
 
-app.patch('/students/:id', (req, res) => {
+app.put('/students/:id', (req, res) => {
     res.send('update student form');
 });
 
@@ -62,7 +66,7 @@ app.delete('/students/:id', (req, res) => {
     res.send('delete student form');
 });
 
-// '/
+// 
 
 //----------------------------------ROUTING----------------------------------
 
