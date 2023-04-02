@@ -17,7 +17,15 @@ const students = require('./models/students.js');
 app.set('view engine', 'jsx');
 app.engine('jsx', require('express-react-views').createEngine());
 //----------------------------------MIDDLEWARE----------------------------------
+//access data in POST requests
+app.use((req, res, next) => {
+    console.log('I run for all routes');
+    next();
+});
 
+app.use(express.urlencoded({extended:false}));
+
+let floatingStudent;
 //----------------------------------ROUTING----------------------------------
 
 //GET '/' index : route dispalying a list of students
@@ -32,11 +40,19 @@ app.get('/students/new', (req, res) => {
     res.send('new student form');
 });
 // POST 'students' create: route creating a new student
+app.get('/students/:id/grades', (req, res) => {
+    floatingStudent = req.params.id;
+    console.log('floating student in get', floatingStudent);
+    res.render('Grades', { student: students[req.params.id] });
+});
 
-app.post('/students', (req, res) => {
-    res.send('create student form');
-})
+app.post(`/students/:id/grades`, (req, res) => {
+    console.log(req.body.grade);
+    students[floatingStudent].grades.push(req.body.grade);
+    console.log('floatingstudent in post', students[floatingStudent].grades)
 
+    res.redirect(`/students/${floatingStudent}`);
+});
 // GET '/:id' show : route displaying a single student
 
 app.get('/students/:id', (req, res) => {

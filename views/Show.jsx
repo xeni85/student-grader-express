@@ -1,12 +1,14 @@
 //invoke react component
 const React = require('react');
 const students = require('../models/students.js');
+
+
 export class Show extends React.Component {
   render() {
     const student = this.props.student;
     return (
       <div>
-        <h1>Instructor's Dashboard</h1>
+        <h1>Student Profile</h1>
         <table>
             <tbody>
                 <tr>
