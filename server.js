@@ -37,20 +37,29 @@ app.get('/students', (req, res) => {
 // GET '/students/new'  new: route displaying a form to create a new student
 
 app.get('/students/new', (req, res) => {
-    res.send('new student form');
+    res.render( 'New');
 });
-// POST 'students' create: route creating a new student
+
+app.post('/students/new', (req, res) => {
+    console.log(req.body);
+   req.body.grades = Array.from(req.body.grades);
+   const obj = JSON.parse(JSON.stringify(req.body))
+    students.push(obj);
+    console.log(students);
+    res.redirect('/students');
+
+})
+// POST 'students' create: route creating a new grade
 app.get('/students/:id/grades', (req, res) => {
     floatingStudent = req.params.id;
     console.log('floating student in get', floatingStudent);
     res.render('Grades', { student: students[req.params.id] });
 });
 
-app.post(`/students/:id/grades`, (req, res) => {
-    console.log(req.body.grade);
-    students[floatingStudent].grades.push(req.body.grade);
-    console.log('floatingstudent in post', students[floatingStudent].grades)
 
+
+app.post(`/students/:id/grades`, (req, res) => {
+    students[floatingStudent].grades.push(req.body.grade);
     res.redirect(`/students/${floatingStudent}`);
 });
 // GET '/:id' show : route displaying a single student
@@ -59,9 +68,6 @@ app.get('/students/:id', (req, res) => {
     res.render('Show', { student: students[req.params.id] });
 });
 
-app.get('/students/:id/grades', (req, res) => {
-    res.render('Grades', { student: students[req.params.id] });
-});
 
 // GET '/students/:id/edit' : route displaying a form to edit a student
 

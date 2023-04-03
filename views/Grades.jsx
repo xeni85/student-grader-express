@@ -1,49 +1,27 @@
 import React, { useState } from 'react'
 
+
 const Grades = (props) => {
 
   return (
-    <div>Grades
-       <form action={`/students/${props.student}/grades`} method="POST">
-        <input type="number" name="grade"/>
+    <div style={myStyles}>Grades
+       <form action={`/students/student/grades`} method="POST">
+        <input type="number" name="grade" min={0} max={100}/>
         <input type="submit" name="" value="Add Grade"/>
       </form>
     </div>
   )
 }
+const myStyles = {
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: '100vh',
+    width: '100vw',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    color: 'white',
+    fontFamily: 'Helvetica',
+}
 
-export default Grades
-
-// export class Grades extends React.Component {
-    
-//   render() {
-//     const val = document.querySelector('.input').value
-    
-    
-//     this.handleSubmit = (event) => {
-//         student.grades.push(val);
-//       };
-//     //
-    
-//     return (
-//       <div>
-// <form>
-//         <label>
-//           New Grade:
-//           <input
-//             type="number"
-//             value={this.state.value}
-//             onChange={this.handleSubmit}
-//             className='input'
-//           />
-//         </label>
-//         <button type="submit">Add Grade</button>
-//       </form>
-//       {console.log(student)}
-//       </div>
-
-//     )
-//   }
-// }
-
-// module.exports = Grades;
+export default Grades;
